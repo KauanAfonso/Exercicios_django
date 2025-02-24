@@ -19,6 +19,13 @@
     <button type="submit">Exluir tarefa</button>
 </form>
 
+
+<form action="{% url 'atualizar_tarefa' i.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">Atualizar tarefa</button>
+</form>
+
+
 <br><br>
 
 {% endfor %}

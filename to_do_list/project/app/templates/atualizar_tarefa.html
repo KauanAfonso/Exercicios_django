@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizar Tarefa</title>
+</head>
+<body>
+    <h1>Atualizar Tarefa</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="descricao">Descrição:</label>
+        <input type="text" name="descricao" id="descricao" value="{{ tarefa.descricao }}">
+
+        <label for="status">Status:</label>
+        <select name="status" id="status">
+            <option value="PENDENTE" {% if tarefa.status == 'PENDENTE' %}selected{% endif %}>PENDENTE</option>
+            <option value="CONCLUIDA" {% if tarefa.status == 'CONCLUIDA' %}selected{% endif %}>CONCLUIDA</option>
+            <option value="A FAZER" {% if tarefa.status == 'A FAZER' %}selected{% endif %}>A FAZER</option>
+        </select>
+
+        <button type="submit">Atualizar Tarefa</button>
+        <a href="{% url 'mostrar_tarefa' %}">Voltar</a>
+
+    </form>
+</body>
+</html>
