@@ -5,3 +5,4 @@ from .models import Postagem
 def listar_postagens(request):
     postagens = Postagem.objects.all().order_by('-data')
     return render(request, 'blog/kauan.html', {'postagens': postagens})
+#teste
