@@ -13,7 +13,13 @@
 
 <li>{{i.descricao}}</li>
 <li>{{i.status}}</li>
-<br>
+
+<form action="{% url 'excluir_tarefa' i.id %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">Exluir tarefa</button>
+</form>
+
+<br><br>
 
 {% endfor %}
 </ul>
