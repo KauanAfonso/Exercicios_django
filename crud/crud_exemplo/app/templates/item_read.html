@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item_read</title>
+</head>
+<body>
+    <h1>Listagem de itens</h1>
+    <ul>
+        {% for i in itens %}
+
+        <li>
+
+            {{i.nome}} - {{i.descricao}}
+
+        </li>
+
+        {% endfor %}
+    </ul>
+</body>
+</html>
