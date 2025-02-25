@@ -7,13 +7,14 @@
 </head>
 <body>
     <h1>Listagem de itens</h1>
+    <a href="{% url  'item_create'%}">Criar um novo Itenzinho</a>
     <ul>
         {% for i in itens %}
 
         <li>
-
             {{i.nome}} - {{i.descricao}}
-
+            <a href="{% url 'item_update' i.pk %}">Editar</a>
+            <a href="{% url 'confirmar_delete.html' i.pk %}">Deletar</a>
         </li>
 
         {% endfor %}
