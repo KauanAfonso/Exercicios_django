@@ -14,7 +14,7 @@
         <li>
             {{i.nome}} - {{i.descricao}}
             <a href="{% url 'item_update' i.pk %}">Editar</a>
-            <a href="{% url 'confirmar_delete.html' i.pk %}">Deletar</a>
+            <a href="{% url 'item_delete' i.pk %}">Deletar</a>
         </li>
 
         {% endfor %}

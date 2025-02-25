@@ -31,7 +31,7 @@ def item_update(request, pk):
 
 def item_delete(request,pk):
     item = get_object_or_404(Item, pk=pk)
-    if request.method == "DELETE":
+    if request.method == "POST":
         item.delete()
         return redirect('item_read')
     return render(request,'confirmar_delete.html', {'item':item})    
