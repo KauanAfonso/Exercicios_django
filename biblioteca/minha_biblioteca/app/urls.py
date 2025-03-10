@@ -6,4 +6,5 @@ urlpatterns = [
     path('criar/' , views.criar_livro, name='criar_livro'),
     path('editar/<int:pk>' , views.atualizar_livro, name='atualizar_livro'),
     path('excluir/<int:pk>', views.deletar_livro, name="excluir_livro" ),
+    path('filtro/', views.filtrar, name='filtrar_livro')
 ]

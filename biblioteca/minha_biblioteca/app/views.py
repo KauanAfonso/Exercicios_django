@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from .models import livros
 from .form import itemForm
+from .filters import livroFilter
 # Create your views here.
 
 def visualizar_livros(request):
@@ -37,3 +38,7 @@ def deletar_livro(request,pk):
         id_livro.delete()
         return redirect("livros")
     return render(request, 'excluir_livro.html', {'livro':id_livro})
+
+def filtrar(request):
+    filtro = livroFilter(request.GET, queryset=livros.objects.all())
+    return render(request, "filtrar_livro.html", {'filtro':filtro})
