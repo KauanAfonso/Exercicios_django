@@ -7,12 +7,12 @@
 </head>
 <body>
 
-    <h1>Tem certeza de que quer excluir o livro {{livro.titulo}}?</h1>
+    <h1>Tem certeza de que quer excluir o livro {{ livro.titulo }} ?</h1>
 
-    <form method="method">
+    <form method="POST">
         {% csrf_token %}
         <button type="submit">Excluir</button>
     </form>
-    <a href="./livros.html">Voltar</a>
+    <a href="{% url 'livros' %}">Voltar</a>
 </body>
 </html>

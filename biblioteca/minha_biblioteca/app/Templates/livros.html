@@ -8,6 +8,7 @@
 <body>
    <h1>livro</h1> 
 
+    <a href="{%url 'criar_livro'%}">Criar um livro novo</a>
 
    <ul>
     {% for livro in livros %}
@@ -16,8 +17,8 @@
             Autor: {{ livro.autor }} <br>
             Data de publicação: {{ livro.data_de_publicacao }} <br>
 
-            <a href="% url %">Excluir Livro</a>
-            <a href="">Editar livro</a>
+            <a href="{% url 'excluir_livro' livro.pk%}">Excluir Livro</a>
+            <a href="{% url 'atualizar_livro' livro.pk%}">Editar livro</a>
         </li><br>
     {% endfor %}
 </ul>

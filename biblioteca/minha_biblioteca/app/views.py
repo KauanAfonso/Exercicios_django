@@ -36,4 +36,4 @@ def deletar_livro(request,pk):
     if request.method == "POST":
         id_livro.delete()
         return redirect("livros")
-    return render(request, 'excluir_livro.html', {'id':id_livro})
+    return render(request, 'excluir_livro.html', {'livro':id_livro})
