@@ -1,6 +1,8 @@
 from . import views
 from django.urls import path
 
+
+#Aqui fica as urls do site
 urlpatterns = [
     path('', views.visualizar_livros, name='livros'),
     path('criar/' , views.criar_livro, name='criar_livro'),

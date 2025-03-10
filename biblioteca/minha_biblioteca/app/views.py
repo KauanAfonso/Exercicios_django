@@ -39,6 +39,12 @@ def deletar_livro(request,pk):
         return redirect("livros")
     return render(request, 'excluir_livro.html', {'livro':id_livro})
 
+'''
+
+a func filtrar pega a class livroFilter
+e renderiza 
+
+'''
 def filtrar(request):
     filtro = livroFilter(request.GET, queryset=livros.objects.all())
-    return render(request, "filtrar_livro.html", {'filtro':filtro})
+    return render(request, "livros.html", {'filtro':filtro})

@@ -6,5 +6,5 @@ class itemForm(forms.ModelForm):
         model = livros
         fields = ['titulo', 'autor', 'data_de_publicacao']
         widgets = {
-            'data_de_publicacao': forms.DateInput(attrs={'type': 'date'})
+            'data_de_publicacao': forms.DateInput(attrs={'type': 'date'}) #Aqui ele vai transformar meu input de text em de data
         }

@@ -6,22 +6,30 @@
     <title>Document</title>
 </head>
 <body>
-   <h1>livro</h1> 
+    <h1>livro</h1> 
+    <button><a href="{%url 'criar_livro'%}">Criar um livro novo</a></button><br><br>
 
-    <a href="{%url 'criar_livro'%}">Criar um livro novo</a>
+    <!--Aqui será onde ficará a busca pelo filtro-->
+    <form method="get">
+        {{filtro.form}}
+        <br><button type="submit">Filtrar</button>
+    </form>
 
-   <ul>
-    {% for livro in livros %}
-        <li>
-            Livro: {{ livro.titulo }} <br>
-            Autor: {{ livro.autor }} <br>
-            Data de publicação: {{ livro.data_de_publicacao }} <br>
+<!--Aqui é minha lista de livros com seus respectivos links para criar e exlcuir eles -->
+    <ul>
 
+        {%for livro in filtro.qs %}
+            <li>{{livro.titulo}}</li>
+            <li>{{livro.autor}}</li>
+            <li>{{livro.data_de_publicacao}}</li>
             <a href="{% url 'excluir_livro' livro.pk%}">Excluir Livro</a>
-            <a href="{% url 'atualizar_livro' livro.pk%}">Editar livro</a>
-        </li><br>
-    {% endfor %}
-</ul>
+            <a href="{% url 'atualizar_livro' livro.pk%}">Editar livro</a><br><br>
+        <!--Caso não tiver nada irá aparecer nenhum livro-->
+        {% empty %}
+            <li>Nenhum livro encontrado</li>
+        {% endfor %}
+
+    </ul>
 
 
 </body>
