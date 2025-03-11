@@ -10,5 +10,5 @@ class livroFilter(django_filters.FilterSet):
     data_de_publicacao = DateFilter(field_name="data_de_publicacao", lookup_expr='exact', widget=forms.DateInput(attrs={'type': 'date'}))
     
     class Meta:
-        model = livros
-        fields = '__all__'
+        model = livros #definindo a model
+        fields = '__all__' #todos os campos poderão ser utilizados

@@ -13,7 +13,9 @@ def visualizar_livros(request):
     filtro = livroFilter(request.GET, queryset=livros.objects.all())
     return render(request,  "livros.html", {'filtro':filtro})
 
-
+'''
+Função para criar um livro com base no ID
+'''
 def criar_livro(request):
     if request.method == 'POST':
         form = itemForm(request.POST)
@@ -25,6 +27,10 @@ def criar_livro(request):
         
     return render(request, "criar_livro.html" , {'form':form})
 
+
+'''
+Função para atualizar um livro com base no ID
+'''
 def atualizar_livro(request, pk):
     id_livro = get_object_or_404(livros,pk=pk)
     if request.method == "POST":
@@ -37,7 +43,9 @@ def atualizar_livro(request, pk):
         
     return render(request, "atualizar_livro.html" , {'form':form})
 
-
+'''
+Função para deletar um livro com base no ID
+'''
 def deletar_livro(request,pk):
     id_livro = get_object_or_404(livros, pk=pk)
     if request.method == "POST":
