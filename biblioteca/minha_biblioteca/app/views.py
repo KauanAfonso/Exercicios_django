@@ -4,9 +4,15 @@ from .form import itemForm
 from .filters import livroFilter
 # Create your views here.
 
+'''
+
+Estou chamando o filtro como metodo get e redenderizando ele
+
+'''
 def visualizar_livros(request):
-    todos_livros = livros.objects.all()
-    return render(request, 'livros.html', {'livros': todos_livros})
+    filtro = livroFilter(request.GET, queryset=livros.objects.all())
+    return render(request,  "livros.html", {'filtro':filtro})
+
 
 def criar_livro(request):
     if request.method == 'POST':
@@ -22,7 +28,7 @@ def criar_livro(request):
 def atualizar_livro(request, pk):
     id_livro = get_object_or_404(livros,pk=pk)
     if request.method == "POST":
-        form = itemForm(request.POST, instance=id_livro) #esse instance irá
+        form = itemForm(request.POST, instance=id_livro) #cria uma instancia de um livro com id pego no get
         if form.is_valid():
             form.save()
             return redirect("livros")
@@ -39,12 +45,4 @@ def deletar_livro(request,pk):
         return redirect("livros")
     return render(request, 'excluir_livro.html', {'livro':id_livro})
 
-'''
 
-a func filtrar pega a class livroFilter
-e renderiza 
-
-'''
-def filtrar(request):
-    filtro = livroFilter(request.GET, queryset=livros.objects.all())
-    return render(request, "livros.html", {'filtro':filtro})
