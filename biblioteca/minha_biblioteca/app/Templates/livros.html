@@ -6,10 +6,18 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>livro</h1> 
-    <button><a href="{%url 'criar_livro'%}">Criar um livro novo</a></button><br><br>
+    
+    <h1>Olá administrador {{ nome }}!</h1> 
+    <button>
+        <a href="{%url 'criar_livro'%}">Criar um livro novo</a>
+    </button>
+    <button>
+        <a href="{% url 'logout' %}">Sair</a>
+    </button><br><br>
+
 
     <!--Aqui será onde ficará a busca pelo filtro-->
+    <h2>Filtro</h2>
     <form method="get">
         {{filtro.form}}
         <br><button type="submit">Filtrar</button>
