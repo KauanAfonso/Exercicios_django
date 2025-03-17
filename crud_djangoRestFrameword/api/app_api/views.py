@@ -6,12 +6,19 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 # Create your views here.
 
+
+'''
+Retornar todos os dados da api
+'''
 @api_view(["GET"])
 def read_carro(request):
     carros = Carro.objects.all()
     serializer = CarroSerializer(carros, many=True) #
     return Response(serializer.data) #passar o serializar em json
 
+'''
+Pegar somente um carro da api pelo id
+'''
 @api_view(["GET"])
 def  read_one_car(request, pk):
     try:
@@ -20,3 +27,5 @@ def  read_one_car(request, pk):
         return Response(serializer.data)
     except Carro.DoesNotExist:
         return Response({'error': 'Car is not found'}, status=status.HTTP_404_NOT_FOUND) #retornando o erro e status 
+    
+
