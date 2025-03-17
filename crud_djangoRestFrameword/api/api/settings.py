@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app_api',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -77,7 +78,7 @@ WSGI_APPLICATION = 'api.wsgi.application'
 #adicionando o banco 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.msql',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'api',
         'USER': 'root',
         'PASSWORD':'senai',
