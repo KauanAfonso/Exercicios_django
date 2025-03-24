@@ -9,6 +9,11 @@ from django.contrib.auth.forms import AuthenticationForm
 # Create your views here.
 
 
+'''
+função de login, tuilizando o login()
+de django.contrib.auth
+
+'''
 def realizar_login(request):
     if request.method == "POST":
         form = AuthenticationForm(data=request.POST)#cria um formulário de autenticação com os dados POST
@@ -30,7 +35,7 @@ def realizar_logout(request):
 '''
 Estou chamando o filtro como metodo get e redenderizando ele
 '''
-@login_required #essa func não deixara acessar sem logar
+@login_required #esse loader não deixara acessar sem logar
 def visualizar_livros(request):
     filtro = livroFilter(request.GET, queryset=livros.objects.all())
     nome = request.user.username

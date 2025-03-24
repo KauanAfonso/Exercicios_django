@@ -1,7 +1,7 @@
 # Create your models here.
 from django.db import models
 
-# Create your models here.
+#Banco de dados com tabela para item
 class Item(models.Model):
     nome = models.CharField(max_length=250)
     descricao = models.TextField()

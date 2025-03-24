@@ -2,7 +2,7 @@ from . import views
 from django.urls import path
 
 
-#Aqui fica as urls do site
+#Aqui fica as urls do site que poderão ser acessadas
 urlpatterns = [
     path('', views.visualizar_livros, name='livros'),
     path("login/", views.realizar_login, name="login" ),

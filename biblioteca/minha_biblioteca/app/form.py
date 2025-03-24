@@ -1,6 +1,8 @@
 from django import forms
 from.models import livros
 
+
+#Definie como será o formulario de item 
 class itemForm(forms.ModelForm):
     class Meta:
         model = livros
