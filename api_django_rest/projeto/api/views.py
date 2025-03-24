@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import get_object_or_404
 from . import models
 from .serializer import CategoriaSerializer, EventosSerializer, Evento_CategoriaSerializer
+from .filter import Filtrar_Evento
 
 
 @api_view(["POST"])
@@ -19,7 +20,13 @@ def criar_evento(request):
 @api_view(["GET"])
 def obter_eventos(request):
     try:
-        evento = models.Evento.objects.all()
+        filtro = Filtrar_Evento(request.query_params, queryset=models.Evento.objects.all())
+
+        if filtro.is_valid():
+            evento = filtro.qs
+        else:
+            evento = models.Evento.objects.all()
+
         serializer = Evento_CategoriaSerializer(evento ,many=True)
         return Response(serializer.data) #retornando todos os eventos
     except:
