@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 
+#Urls da api para uso
 urlpatterns = [
     path('criar_evento/', views.criar_evento),
     path('eventos/', views.obter_eventos),

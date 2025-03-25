@@ -1,20 +1,22 @@
 from django.db import models
+from datetime import datetime,timedelta
 
 
 '''
 
 Teremos uma tabela para eventos e uma para 
-categoria. Um evento pode ter uma ou várias
-uma categoria no sistema.
+categoria. Um evento pode ter uma e somente uma
+categoria no sistema.
 
 '''
-
+#tabela categoria
 class Categoria(models.Model):
     nome_categoria = models.CharField(max_length=255)
 
     def __str__(self):
         return self.nome_categoria
 
+#Tabela evento
 class Evento(models.Model):
     nome = models.CharField(max_length=255)
     descricao = models.TextField()
@@ -26,3 +28,6 @@ class Evento(models.Model):
     def __str__(self):
         return f"Nome: {self.nome}, Descricao: {self.nome}, Local {self.local}"
     
+ 
+       
+     
