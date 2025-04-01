@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-29o($4fy)l-+-+g%$l#gmd@hfcpxb^1!!7qs^*^ea-$-8k$wv&'
+SECRET_KEY = 'django-insecure-lp(1o@#%pdhx5rv06)rho00%%xg#8^!lyuk=)!f@*#^@jq0n0f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
-    'api',
+    'app',
 ]
 
 
@@ -59,8 +59,6 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
 }
-
-AUTH_USER_MODEL = 'api.UsuarioDS16'
 
 
 MIDDLEWARE = [
@@ -135,6 +133,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+
+AUTH_USER_MODEL ='app.Pessoa'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

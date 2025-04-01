@@ -1,14 +1,15 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import UsuarioDS16
+from .models import UsuarioDS16, Pessoa
 # Register your models here.
 class UsuarioDS16Admin(UserAdmin):
-    list_display = ('username', 'email', 'data_nascimento', 'edv', 'padrinho', 'apelido')#definido os campos que aparecerá do usuário
+    list_display = ('username', 'email', 'data_nascimento', 'edv', 'padrinho', 'apelido', 'pk')#definido os campos que aparecerá do usuário
 
     #Clicar no usuario especifico aparecer essas informações
     fieldsets = UserAdmin.fieldsets +(
         (None, {
             "fields": ( 
+                'pk',
                 'data_nascimento',
                 'edv',
                 'padrinho',
@@ -31,3 +32,4 @@ class UsuarioDS16Admin(UserAdmin):
     )
 
 admin.site.register(UsuarioDS16,UsuarioDS16Admin)
+

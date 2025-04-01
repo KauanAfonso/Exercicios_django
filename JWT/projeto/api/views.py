@@ -1,10 +1,13 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
+from django.contrib.auth import authenticate
 from .models import UsuarioDS16
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import IsAuthenticated
 
-# Create your views here.
+
 @api_view(["POST"])
 def criar_usuario(request):
     
@@ -43,13 +46,39 @@ def criar_usuario(request):
     return Response({"Mensagem": f"O usuario {username} foi criado com sucesso"}, status=status.HTTP_201_CREATED)
 
 
+#logar 
+@api_view(['POST'])
+def logar_usuario(request):
+    
+    #pegando os dados do user
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    #autenticando
+    usuario = authenticate(username=username, password=password)
+
+    #se usuario for verdadeiro, cria um novo token de acesso
+    if usuario:
+        refresh = RefreshToken.for_user(usuario)
+        return Response({"acesso": str(refresh.access_token), 'refresh':str(refresh)}, status=status.HTTP_200_OK)#retornando o token de acesso e o o refresh do msm caso for expiradp
+    else:
+        return Response({"Erro": "Usuário ou/e senha incorretas"}, status=status.HTTP_401_UNAUTHORIZED)#Tratativa de erro 
+    
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def read(resquest):
+    return Response({"Mensagem": "Ola DS16"}, status=status.HTTP_200_OK)
 
 '''
+
 {
-  "username":"Dorival cleber",
-   "password":"123",
-    "EDV": 12377,
-     "data_nascimento":"2024-06-15"
+
+"username":"Dorival cleber",
+"password":"123",
+"EDV": 12377,
+"data_nascimento":"2024-06-15"
+
 }
 
 '''
