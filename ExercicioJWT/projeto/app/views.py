@@ -45,4 +45,27 @@ def criar_usuario(request):
 
     return Response(f"Usuário criado: {pessoa}", status=status.HTTP_201_CREATED)
 
+@api_view(['DELETE', "PUT"])
+def atualizar_pessoa(request,pk):
+    
+    try:
+        pessoa = Pessoa.objects.get(pk=pk)
+    except Pessoa.DoesNotExist:
+        return Response("ERRO: Não encontrado", status=status.HTTP_NOT_FOUND)
 
+    if request.method == 'PUT':
+        serializer = PessaoSerializer(pessoa, many=False)
+        return Response({f"Usuario atualizado": serializer.data}, status.HTTP_200_OK )
+        
+
+
+@api_view(['DELETE', 'GET'])
+def excluir_pessoa(request,pk):
+    try:
+        pessoa = Pessoa.objects.get(pk=pk)
+    except Pessoa.DoesNotExist:
+        return Response({f"ERRO: Não encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
+    pessoa.delete()
+    return Response({f"Usuario deletado: {pessoa}"}, status=status.HTTP_200_OK)
+    
