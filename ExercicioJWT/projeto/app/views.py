@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from rest_framework import status
-from rest_framework.response import Response 
-from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
 from .models import Pessoa
 from .serializer import PessaoSerializer
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 @api_view(['GET'])
@@ -60,6 +63,7 @@ def atualizar_pessoa(request,pk):
 
 
 @api_view(['DELETE', 'GET'])
+@permission_classes([IsAuthenticated])
 def excluir_pessoa(request,pk):
     try:
         pessoa = Pessoa.objects.get(pk=pk)
@@ -69,3 +73,16 @@ def excluir_pessoa(request,pk):
     pessoa.delete()
     return Response({f"Usuario deletado: {pessoa}"}, status=status.HTTP_200_OK)
     
+@api_view(["POST"])
+def fazer_login(request):
+    
+    username = request.data.get('username')
+    password = request.data.get('password')
+    
+    usuario = authenticate(username=username, password=password)
+    
+    if usuario:
+        refresh =RefreshToken.for_user(usuario)
+        return Response({f"acesso":str(refresh.access_token), "refresh": str(refresh)},  status=status.HTTP_200_OK)
+    else:
+        return Response({"Erro": "Usuário ou/e senha incorretas"}, status=status.HTTP_401_UNAUTHORIZED)#Tratativa de erro 
