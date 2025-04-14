@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+
+
 #classe para a atividade do dorival de CRUD
 class Pessoa(AbstractUser):
     biografia = models.TextField()
