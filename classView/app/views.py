@@ -32,4 +32,3 @@ class PilotoListCreateAPIView(ListCreateAPIView):
         serializer.save()
         
     
-clas
