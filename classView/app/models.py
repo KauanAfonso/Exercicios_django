@@ -1,8 +1,5 @@
 from django.db import models
 
-
-
-
 class Piloto(models.Model):
     nome = models.CharField(max_length=255)
     idade = models.PositiveIntegerField()
@@ -15,7 +12,7 @@ class Piloto(models.Model):
 class Carro(models.Model):
 
     nome = models.CharField(max_length=255)
-    marca = models.CharField (max_length=255)
+    marca = models.CharField(max_length=255)
     velocidade_maxima = models.PositiveIntegerField()
 
     escolha_cores = (
