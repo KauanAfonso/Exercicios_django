@@ -79,12 +79,82 @@ class PilotoRetriveUpdateDestroyAPIview(RetrieveUpdateDestroyAPIView): #consulta
     serializer_class = PilotoSerializer
     lookup_field = 'pk' #Campo que será passado na url
 
+    #----------------------------------------------------------------DELETE----------------------------------------
+    @swagger_auto_schema(
+            operation_description = "Exlcuir o piloto por id",
+            responses={
+                #repostas possiveis
+                200:PilotoSerializer(many=True),
+                404:"Not Found",
+                400:"Error"
+            }
+    )
+
+    #Chamando a classe pai para a descricao ficar em cima do enpoint do swwager
+    def delete(self, request, *args, **kwargs ):
+        return super().get(request, *args, **kwargs)
+    
+
+
+    #----------------------------------------------------------------GET----------------------------------------
+    @swagger_auto_schema(
+            operation_description = "Obter um piloto por id",
+            responses={
+                #repostas possiveis
+                200:PilotoSerializer(many=True),
+                404:"Not Found",
+                400:"Error"
+            }
+    )
+
+    #Chamando a classe pai para a descricao ficar em cima do enpoint do swwager
+    def get(self, request, *args, **kwargs ):
+        return super().get(request, *args, **kwargs)
+    
+
+    
+
+    #----------------------------------------------------------------PUT----------------------------------------
+    @swagger_auto_schema(
+            operation_description = "Atualiza todos os dados de um piloto por id",
+            request_body= PilotoSerializer,
+            responses={
+                #repostas possiveis
+                200:PilotoSerializer(many=True),
+                404:"Not Found",
+                400:"Error"
+            }
+    )
+
+    #Chamando a classe pai para a descricao ficar em cima do enpoint do swwager
+    def put(self, request, *args, **kwargs ):
+        return super().get(request, *args, **kwargs)
+    
+
+
+
+    #----------------------------------------------------------------PATCH----------------------------------------
+    @swagger_auto_schema(
+            operation_description = "Atualiza no minimo um dado de um piloto por id",
+            request_body= PilotoSerializer,
+            responses={
+                #repostas possiveis
+                200:PilotoSerializer(many=True),
+                404:"Not Found",
+                400:"Error"
+            }
+    )
+
+    #Chamando a classe pai para a descricao ficar em cima do enpoint do swwager
+    def patch(self, request, *args, **kwargs ):
+        return super().get(request, *args, **kwargs)
 
 
 #Fazendo para carros
 class CarroListCreateAPIView(ListCreateAPIView):
     queryset = Carro.objects.all()
     serializer_class = CarroSerializer 
+
     
     def get_queryset(self):
         queryset = super().get_queryset()
