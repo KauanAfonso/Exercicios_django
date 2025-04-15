@@ -1,9 +1,11 @@
 from django.shortcuts import render
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .models import Piloto, Carro
 from .serializers import PilotoSerializer, CarroSerializer
 from rest_framework import serializers
 from rest_framework.pagination import PageNumberPagination
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 #Paginação
 class PilotoPaginacao(PageNumberPagination):
@@ -18,6 +20,45 @@ class PilotoListCreateAPIView(ListCreateAPIView):
     serializer_class = PilotoSerializer
     pagination_class = PilotoPaginacao
 
+    #descricao da api no swwaget
+    @swagger_auto_schema(
+            operation_description = "lista todos os pilotos de formula 1",
+            responses={
+                #repostas possiveis
+                200:PilotoSerializer(many=True),
+                400:"Error"
+            },
+            manual_parameters=[
+                openapi.Parameter(
+                    'nome',
+                    openapi.IN_QUERY,
+                    description='Filtrar pelo nome do piloto',
+                    type=openapi.TYPE_STRING
+                )
+            ],
+    )
+
+    #Chamando a classe pai para a descricao ficar em cima do enpoint do swwager
+    def get(self, request, *args, **kwargs ):
+        return super().get(request, *args, **kwargs)
+    
+
+    #Fazendo descricao para o post
+    @swagger_auto_schema(
+            operation_description='Cria um novo piloto',
+            request_body= PilotoSerializer,
+            responses={
+                201:PilotoSerializer,
+                400:"ERROO"
+            }
+    )
+    
+    #Chamando a classe pai para a descricao ficar em cima do enpoint do swwager
+    def post(self, request, *args, **kwargs ):
+        return super().get(request, *args, **kwargs)
+    
+    
+
     #Filtrando por nome do piloto
     def get_queryset(self):
         queryset = super().get_queryset() #super chama a classe piloListCreateApiView, e chamando para ele o method 5get_queryset()
@@ -31,6 +72,12 @@ class PilotoListCreateAPIView(ListCreateAPIView):
         if serializer.validated_data['equipe'] != "DS16" and serializer.validated_data['classificacao'] <=5: #somente se a equipe for ds16 pode ficar entre os 5
             raise serializers.ValidationError('Somente a DS16 deve ficar entre os 5')
         serializer.save()
+
+
+class PilotoRetriveUpdateDestroyAPIview(RetrieveUpdateDestroyAPIView): #consultar , deletar e Selecionar
+    queryset = Piloto.objects.all()
+    serializer_class = PilotoSerializer
+    lookup_field = 'pk' #Campo que será passado na url
 
 
 
