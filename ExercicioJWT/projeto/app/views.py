@@ -70,7 +70,7 @@ def atualizar_pessoa(request,pk):
         return Response("ERRO: Não encontrado", status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
-        serializer = PessaoSerializer(isinstance=pessoa, data=request.data) #Criando uma instancia da pessoa para lidar somente com ela e pegando os dados enviados
+        serializer = PessaoSerializer(instance=pessoa, data=request.data) #Criando uma instancia da pessoa para lidar somente com ela e pegando os dados enviados
         if serializer.is_valid():
             serializer.save() #salvar no banco se for valido
             return Response({"Usuario atualizado": serializer.data}, status=status.HTTP_200_OK)
