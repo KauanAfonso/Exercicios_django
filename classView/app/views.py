@@ -20,7 +20,7 @@ class PilotoListCreateAPIView(ListCreateAPIView):
     serializer_class = PilotoSerializer
     pagination_class = PilotoPaginacao
 
-    #descricao da api no swwaget
+    #descricao da api no swagger
     @swagger_auto_schema(
             operation_description = "lista todos os pilotos de formula 1",
             responses={
@@ -162,3 +162,31 @@ class CarroListCreateAPIView(ListCreateAPIView):
         if marca:
             queryset = queryset.filter(marca__icontains=marca) 
         return queryset
+    
+
+
+    #Fazendo o get do piloto para carro
+    @swagger_auto_schema(
+        operation_description = "Obter todos os carros",
+        responses = {
+            200:CarroSerializer(many=True),
+            404:"Not found",
+            400:"Error"
+        }
+    )
+
+    def get(self, request, *args, **kwargs ):
+        return super().get(request, *args, **kwargs)
+    
+    #Fazendo o post do piloto para carro
+    @swagger_auto_schema(
+        operation_description = "Criar carro",
+        request_body = CarroSerializer,
+        responses = {
+            200:CarroSerializer(many=True),
+            400:"Error"
+        }
+    )
+
+    def post(self, request, *args, **kwargs ):
+        return super().get(request, *args, **kwargs)
