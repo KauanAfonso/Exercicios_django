@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Usuario, Empresa
+from .models import Usuario, Empresa, Ingresso
 from rest_framework_simplejwt import TokenObtainPairSerializer #biblioteca para o django manipular o token e refresh
 
 #--------------------------Serializando------------------
@@ -43,3 +43,9 @@ class LoginSerializer(TokenObtainPairSerializer):
 
    
         return data
+
+
+class IngressoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ingresso
+        fields = '__all__'

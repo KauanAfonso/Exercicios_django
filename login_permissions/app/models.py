@@ -1,11 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-
+#empresa
 class Empresa(models.Model):
     nome = models.CharField(max_length=100)
     cnpj = models.CharField(max_length=100)
 
+#usuario 
 class Usuario(AbstractUser):
     apelido = models.CharField(max_length=100, blank=True)
     telefone = models.CharField(max_length=100, null=True, blank=True)
@@ -25,4 +26,7 @@ class Usuario(AbstractUser):
 
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True, blank=True)
 
-
+#ingressos -> um usuario pod ter muitos ingressos
+class Ingresso(models.Model):
+    nome = models.CharField(max_length=100)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE) 
