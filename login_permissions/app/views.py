@@ -1,9 +1,15 @@
 from django.shortcuts import render
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from .serializer import UsuarioSerializer, IngressoSerializer
-from .permission import IsGestor, IsGestorOuDono
+from .serializer import UsuarioSerializer, IngressoSerializer, LoginSerializer
+from .permission import isGestor, isGestorOuDono
 from rest_framework.permissions import IsAuthenticated
 from .models import Ingresso, Usuario
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+class LoginView(TokenObtainPairView):
+    serializer_class = LoginSerializer
+
+
 
 # Listagem e criação de usuários
 class UsuarioListCreateAPIView(ListCreateAPIView):
@@ -14,11 +20,22 @@ class UsuarioListCreateAPIView(ListCreateAPIView):
     def get_permissions(self):
         if self.request.method == 'GET':
             return [IsAuthenticated()]
-        return [IsGestor()]
+        return [isGestor()]
 
 # Detalhar, atualizar e deletar ingresso
-class IngressoRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+class IngressoRUDAPI(RetrieveUpdateDestroyAPIView):
     queryset = Ingresso.objects.all()
     serializer_class = IngressoSerializer
-    permission_classes = [IsGestorOuDono]
+    permission_classes = [isGestorOuDono]
     lookup_field = 'pk'
+
+
+#somente gestores podem criar ingresso e todos autenticados podem visualizar
+class IngresolistCreateApiView(ListCreateAPIView):
+    queryset = Ingresso.objects.all()
+    serializer_class = IngressoSerializer
+
+    def get_permission(self):
+        if self.request.method == "GET":
+            return [IsAuthenticated] #allownAny -> todos poderiam visualizar
+        return [IsGestor()]

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Usuario, Empresa, Ingresso
-from rest_framework_simplejwt import TokenObtainPairSerializer #biblioteca para o django manipular o token e refresh
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer #biblioteca para o django manipular o token e refresh
 
 #--------------------------Serializando------------------
 class UsuarioSerializer(serializers.ModelSerializer):
